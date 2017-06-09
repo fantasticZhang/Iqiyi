@@ -1,23 +1,28 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+  <div id="appContent">
+    <navigation></navigation>
+    <router-view class="view one" name="first"></router-view>
+    <router-view class="view two" name="second"></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+    components: {}
+  }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  @media(min-width:1200px){
+    #appContent{  min-width:1000px; }
+  }
+  @media(min-width:992px) {
+    #appContent{ min-width: 992px;}
+  }
+  @media(min-width: 768px){
+    #appContent{ min-width: 768px;}
+  }
+  @media(max-width: 768px){
+    #appContent{ min-width: 768px;}
+  }
 </style>

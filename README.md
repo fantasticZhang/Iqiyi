@@ -1,6 +1,6 @@
-# iqiyi
+# Iqiyi
 
-> iqiyi - the strongest developer rematch - h5
+> Iqiyi - the strongest developer rematch - h5
 
 ## Build Setup
 
