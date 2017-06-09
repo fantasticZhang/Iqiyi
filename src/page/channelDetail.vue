@@ -7,23 +7,26 @@
         </Spin>
       </div>
       <div v-if="channelDetail">
-        <Row>
-          <Col :xs="6" :md="4" v-for="item in channelDetail">
+        <Row type="flex" justify="start" align="top" class="code-row-bg">
+          <Col :xs="12" :md="4" v-for="item in channelDetail">
           <section class="video">
             <Card>
               <div slot="title">
-                <div>片名：{{ item.title }}</div>
-                <div>评分：{{ item.sns_score }}</div>
-                <div>播放次数：{{ item.play_count_text }}</div>
-                <div>上映时间：{{ item.date_format }}</div>
+                <div class="videoTitle">{{ item.title }}</div>
+                <div class="videoTitle">发布时间：{{ item.date_format }}</div>
+                <div class="videoTitle">评分：{{ item.sns_score }}</div>
+                <div class="videoTitle">播放次数：{{ item.play_count_text }}</div>
               </div>
               <a href="#" slot="extra" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
-                <Icon type="ios-play"></Icon>
+                <Icon type="play"></Icon>
               </a>
-              <img :src="item.img" style="text-align:center">
+              <div class="videoImgOuter">
+                <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
+                  <img class="videoImg" :src="item.img">
+                </a>
+              </div>
             </Card>
           </section>
-
           </Col>
         </Row>
       </div>
@@ -76,8 +79,22 @@
   }
 </script>
 
-<style>
+<style scoped>
   .video{
     padding: 5px;
+  }
+  .videoImg{
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+  }
+  div.videoTitle:first-child{
+    font-weight: bolder;
+  }
+  div.videoTitle{
+    padding-bottom:5px;
+  }
+  div.videoImgOuter{
+    text-align: center;
   }
 </style>

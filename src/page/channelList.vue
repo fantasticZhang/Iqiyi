@@ -3,7 +3,10 @@
     <Row>
       <Col :xs="24" :md="{span:22,offset:1 }">
         <div class="loading" v-if="loading">
-          Loading...
+          <Spin fix>
+            <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+            <div>Loading</div>
+          </Spin>
         </div>
         <div v-if="channelLists">
           <Card>
@@ -33,6 +36,7 @@
       return {
         channelLists: null,
         loading: false,
+        billboard:null
       }
     },
     created () {
@@ -60,5 +64,6 @@
 <style>
   .channel{
     display: inline-block;
+    margin: 3px;
   }
 </style>

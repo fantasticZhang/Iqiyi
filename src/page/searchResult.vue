@@ -7,23 +7,32 @@
           <div>Loading</div>
         </Spin>
       </div>
+
       <div v-if="searchResult">
-        <div class="content" v-for="item in searchResult">
-          <div class="row">
-            <div class="icon"><img :src="item.img"></div>
-            <div class="video">
-              <div>片名：{{ item.title }}</div>
-              <div>评分：{{ item.sns_score }}</div>
-              <div>播放次数：{{ item.play_count_text }}</div>
-              <div>上映时间：{{ item.date_format }}</div>
-              <div>
-                <Button type="primary" class="btn btn-success" :a_id="item.a_id" :tv_id="item.tv_id"
-                        v-on:click="launch">立即观看
-                </Button>
+        <Row type="flex" justify="start" align="middle" class="code-row-bg">
+          <Col :xs="12" :md="4" v-for="item in searchResult">
+          <section class="video">
+            <Card>
+              <div slot="title">
+                <div class="videoTitle">{{ item.short_title}}</div>
+                <div class="videoTitle"><strong>发布时间：</strong>{{ item.date_format }}</div>
+                <div class="videoTitle"><strong>简介：</strong>{{ item.title }}</div>
+                <div class="videoTitle">
+                  <strong> 播放：</strong>
+                  <a  href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
+                    <Icon type="play"></Icon>
+                  </a>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+              <div class="videoImgOuter">
+                <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
+                  <img class="videoImg" :src="item.img">
+                </a>
+              </div>
+            </Card>
+          </section>
+          </Col>
+        </Row>
       </div>
     </div>
   </div>
@@ -66,6 +75,7 @@
       },
       formatImgUrl(videoList){
           return videoList.map(item => {
+            item.img = item.img.replace(".jpg","_195_260.jpg");
             item.img += "?sign=iqiyi";
             return item
           })
@@ -74,3 +84,23 @@
 
   }
 </script>
+
+<style scoped>
+  .video{
+    padding: 5px;
+  }
+  .videoImg{
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+  }
+  div.videoTitle:first-child{
+    font-weight: bolder;
+  }
+  div.videoTitle{
+    padding-bottom:6px;
+  }
+  div.videoImgOuter{
+    text-align: center;
+  }
+</style>

@@ -22,7 +22,4 @@
   @media(min-width: 768px){
     #appContent{ min-width: 768px;}
   }
-  @media(max-width: 768px){
-    #appContent{ min-width: 768px;}
-  }
 </style>
