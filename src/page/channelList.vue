@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <section id="channelList">
     <Row>
-      <Col :xs="24" :md="{span:22,offset:1 }">
+      <Col span="24">
         <div class="loading" v-if="loading">
           <Spin fix>
             <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
@@ -9,14 +9,14 @@
           </Spin>
         </div>
         <div v-if="channelLists">
-          <Card>
+          <Card shadow>
             <p slot="title">
               <Icon type="ios-film-outline"></Icon>
               频道列表
             </p>
             <ul >
               <Row>
-                <Col :xs="4" :md="2" v-for="item in channelLists">
+                <Col :xs="4" :md="2" v-for="item in channelLists" :key="item.id">
                   <li class="channel">
                     <a @click="channelDetail(item.name)">{{ item.name }}</a>
                   </li>
@@ -27,7 +27,7 @@
         </div>
       </Col>
     </Row>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -35,8 +35,7 @@
     data () {
       return {
         channelLists: null,
-        loading: false,
-        billboard:null
+        loading: false
       }
     },
     created () {
@@ -61,7 +60,17 @@
   }
 </script>
 
-<style>
+<style lang="scss">
+  @import "../style/color";
+  a{
+    color: $dark;
+    &:hover{
+      color: $green;
+    }
+  }
+  #channelList{
+    margin: 10px 0;
+  }
   .channel{
     display: inline-block;
     margin: 3px;

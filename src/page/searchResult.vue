@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section id="searchResult">
     <div class="post">
       <div class="loading" v-if="loading">
         <Spin fix>
@@ -9,33 +9,29 @@
       </div>
 
       <div v-if="searchResult">
-        <Row type="flex" justify="start" align="middle" class="code-row-bg">
-          <Col :xs="12" :md="4" v-for="item in searchResult">
+        <Row type="flex" justify="start" align="top" class="code-row-bg">
+          <Col :xs="12" :md="4" v-for="item in searchResult" :key="item.id">
           <section class="video">
-            <Card>
-              <div slot="title">
-                <div class="videoTitle">{{ item.short_title}}</div>
-                <div class="videoTitle"><strong>发布时间：</strong>{{ item.date_format }}</div>
-                <div class="videoTitle"><strong>简介：</strong>{{ item.title }}</div>
-                <div class="videoTitle">
-                  <strong> 播放：</strong>
-                  <a  href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
-                    <Icon type="play"></Icon>
-                  </a>
-                </div>
-              </div>
+            <Card shadow>
               <div class="videoImgOuter">
                 <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
                   <img class="videoImg" :src="item.img">
                 </a>
+                <div>
+                  <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >{{ item.short_title}}</a>
+                  <div class="videoTitle">简介：{{ item.title}}</div>
+                  <div class="videoTitle">发布时间：{{ item.date_format }}</div>
+                </div>
               </div>
             </Card>
           </section>
           </Col>
         </Row>
       </div>
+
+      <div class="noData" v-if="noData"><Alert type="error" show-icon>还没有符合您要求的视频，换个词试试~</Alert></div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -44,6 +40,7 @@
       return {
         loading: false,
         searchResult: null,
+        noData:false
       }
     },
     created () {
@@ -59,13 +56,19 @@
       fetchData () {
         this.searchResult = null;
         this.loading = true;
+        this.noData = false;
         let params = {
           key: this.$route.params.keyword,
           from: 'mobile_list'
         };
         this.$api.get('search', params, r => {
           this.loading = false;
+          this.noData = false;
           this.searchResult = this.formatImgUrl(r.data)
+        },err=>{
+          this.searchResult = null;
+          this.loading = false;
+          this.noData = true;
         })
       },
       launch: event => {
@@ -75,7 +78,7 @@
       },
       formatImgUrl(videoList){
           return videoList.map(item => {
-            item.img = item.img.replace(".jpg","_195_260.jpg");
+            item.img = item.img.replace(".jpg","_220_124.jpg");
             item.img += "?sign=iqiyi";
             return item
           })
@@ -85,22 +88,10 @@
   }
 </script>
 
-<style scoped>
-  .video{
-    padding: 5px;
-  }
-  .videoImg{
-    display: inline-block;
-    height: auto;
-    max-width: 100%;
-  }
-  div.videoTitle:first-child{
-    font-weight: bolder;
-  }
-  div.videoTitle{
-    padding-bottom:6px;
-  }
-  div.videoImgOuter{
-    text-align: center;
+<style lang="scss" scoped>
+
+  @import "../style/common";
+  #searchResult{
+    margin: 10px;
   }
 </style>

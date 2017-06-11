@@ -6,13 +6,15 @@ import carousel from '../page/carousel.vue'
 import channelList from '../page/channelList.vue'
 import channelDetail from '../page/channelDetail.vue'
 import searchResult from '../page/searchResult.vue'
+import billboard from '../page/billboard.vue'
 
 export default [
   {
     path: '/',
     components: {
       first: carousel,
-      second: channelList
+      second: channelList,
+      third:billboard
     }
   },
   {

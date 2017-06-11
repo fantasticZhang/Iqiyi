@@ -1,7 +1,7 @@
 <template>
   <div>
     <Carousel autoplay v-model="value1" v-if="recommend">
-      <div class="content" v-for="item in recommend">
+      <div class="content" v-for="item in recommend" :key="item.id">
         <Carousel-item class="carouselItemOuter">
           <a :a_id="item.a_id" :tv_id="item.tv_id" @click="launch">
             <img class="carouselItem"  :src="item.img">
@@ -46,18 +46,19 @@ export default{
 </script>
 
 <style lang="scss" scoped="">
+  @import "../style/color";
   @media(max-width: 768px){
     .carouselItem{ width:100%}
   }
   @media(min-width: 769px){
-    $topColor: #e0eee8;
-    $bottomColor: #f3f9f1;
+    $topColor: #1c2438;
+    $bottomColor: #495060;
     .carouselItemOuter{
       text-align: center;
-      background: -webkit-linear-gradient(180deg,$topColor,$bottomColor);
-      background: -o-linear-gradient(180deg,$topColor,$bottomColor);
-      background: -moz-linear-gradient(180deg,$topColor,$bottomColor);
-      background: linear-gradient(180deg,$topColor,$bottomColor);
+      background: -webkit-linear-gradient(180deg,$darkBlue,$darkGray);
+      background: -o-linear-gradient(180deg,$darkBlue,$darkGray);
+      background: -moz-linear-gradient(180deg,$darkBlue,$darkGray);
+      background: linear-gradient(180deg,$darkBlue,$darkGray);
     }
   }
 
