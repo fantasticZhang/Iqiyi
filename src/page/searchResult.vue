@@ -29,7 +29,7 @@
         </Row>
       </div>
 
-      <div class="noData" v-if="noData"><Alert type="error" show-icon>还没有符合您要求的视频，换个词试试~</Alert></div>
+      <div class="noData" v-if="noData"><Alert type="error" show-icon>还没有符合您要求的视频，换个词试试%~</Alert></div>
     </div>
   </section>
 </template>

@@ -54,7 +54,7 @@
         })
       },
       channelDetail(channelType){
-          this.$router.push({name: 'detail',params:{channelType: channelType}});
+          this.$router.push({name: 'detail',params:{channelType: channelType,isPurchase:0,mode:11}});
       }
     }
   }

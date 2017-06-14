@@ -7,6 +7,7 @@ import channelList from '../page/channelList.vue'
 import channelDetail from '../page/channelDetail.vue'
 import searchResult from '../page/searchResult.vue'
 import billboard from '../page/billboard.vue'
+import filter from '../page/filter.vue'
 
 export default [
   {
@@ -18,10 +19,10 @@ export default [
     }
   },
   {
-    path: '/detail/:channelType',
+    path: '/detail/:channelType/:isPurchase/:mode',
     name: 'detail',
     components:{
-      first: carousel,
+      first: filter,
       second: channelDetail
     }
   },

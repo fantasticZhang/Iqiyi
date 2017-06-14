@@ -11,18 +11,16 @@
           <Col :xs="12" :md="4" v-for="item in channelDetail" :key="item.id">
           <section class="video">
             <Card shadow>
-              <div slot="title">
-                <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
-                  {{ item.title}}
-                </a>
-                <div class="videoTitle">发布时间：{{ item.date_format }}</div>
-                <div class="videoTitle">评分：{{ item.sns_score }}</div>
-                <div class="videoTitle">播放次数：{{ item.play_count_text }}</div>
-              </div>
               <div class="videoImgOuter">
                 <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
                   <img class="videoImg" :src="item.img">
                 </a>
+              </div>
+              <div >
+                <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
+                  {{ item.short_title}}
+                </a>
+                <div class="videoTitle" v-if="currentChannel==='电影'">评分：{{ item.sns_score }}</div>
               </div>
             </Card>
           </section>
@@ -40,7 +38,10 @@
         return {
           channelDetail: null,
           loading: true,
-          noData:false
+          noData:false,
+          currentChannel:null,
+          isPurchase:null,
+          mode:null,
         }
       },
     created(){
@@ -54,11 +55,21 @@
         this.loading = true;
         this.noData = false;
         this.channelDetail = null;
+
+        this.currentChannel = this.$route.params.channelType;
+        if(!this.currentChannel) this.currentChannel="电影";  //默认值
+
+        this.isPurchase = this.$route.params.isPurchase;
+        if(!this.isPurchase) this.isPurchase=0;  //默认值
+
+        this.mode = this.$route.params.mode;
+        if(!this.mode) this.mode=11;  //默认值
+
         let params = {
           type: "detail",
-          channel_name: this.$route.params.channelType,
-          mode: 11,
-          is_purchase: 0
+          channel_name: this.currentChannel,
+          mode: this.mode,
+          is_purchase: this.isPurchase
         };
         this.$api.get('channel',params,r => {
           this.channelDetail = this.formatImgUrl(r.data.video_list);
