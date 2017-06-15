@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Carousel autoplay v-model="value1" v-if="recommend">
+  <section>
+    <Carousel autoplay v-if="recommend">
       <div class="content" v-for="item in recommend" :key="item.id">
         <Carousel-item class="carouselItemOuter">
           <a :a_id="item.a_id" :tv_id="item.tv_id" @click="launch">
@@ -9,7 +9,7 @@
         </Carousel-item>
       </div>
     </Carousel>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -17,7 +17,6 @@ export default{
 
   data(){
     return{
-      value1:0,
       recommend:null
     }
   },
@@ -28,6 +27,8 @@ export default{
     fetchData(){
       this.$api.get('recommend',{},r=>{
         this.recommend = this.formatData(r.data[0].video_list)
+      },err=>{
+          window.console.log(err);
       })
     },
     formatData(videoList){
@@ -51,8 +52,6 @@ export default{
     .carouselItem{ width:100%}
   }
   @media(min-width: 769px){
-    $topColor: #1c2438;
-    $bottomColor: #495060;
     .carouselItemOuter{
       text-align: center;
       background: -webkit-linear-gradient(180deg,$darkBlue,$darkGray);

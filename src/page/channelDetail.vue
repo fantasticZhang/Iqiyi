@@ -1,33 +1,33 @@
 <template>
   <section id="channelDetail">
-      <div class="loading" v-if="loading">
-        <Spin fix>
-          <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-          <div>Loading</div>
-        </Spin>
-      </div>
-      <div v-if="channelDetail">
-        <Row type="flex" justify="start" align="top" class="code-row-bg">
-          <Col :xs="12" :md="4" v-for="item in channelDetail" :key="item.id">
+    <div class="loading" v-if="loading">
+      <Spin>
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+      </Spin>
+    </div>
+    <div v-if="channelDetail">
+      <Card  shadow>
+        <Row>
+          <Col :xs="8" :md="4" v-for="item in channelDetail" :key="item.id">
           <section class="video">
-            <Card shadow>
-              <div class="videoImgOuter">
-                <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
-                  <img class="videoImg" :src="item.img">
-                </a>
-              </div>
-              <div >
-                <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
-                  {{ item.short_title}}
-                </a>
-                <div class="videoTitle" v-if="currentChannel==='电影'">评分：{{ item.sns_score }}</div>
-              </div>
-            </Card>
+            <div class="videoImgOuter">
+              <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
+                <img class="videoImg" :src="item.img">
+              </a>
+            </div>
+            <div >
+              <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
+                {{ item.short_title}}
+              </a>
+              <div class="videoTitle" v-if="currentChannel==='电影'">评分：{{ item.sns_score }}</div>
+            </div>
           </section>
           </Col>
         </Row>
-      </div>
-      <div class="noData" v-if="noData"><Alert type="error" show-icon>该频道暂无内容，去其他频道看看吧~</Alert></div>
+      </Card>
+    </div>
+    <div class="noData" v-if="noData"><Alert type="error" show-icon>该频道暂无内容，去其他频道看看吧~</Alert></div>
   </section>
 </template>
 
@@ -56,14 +56,23 @@
         this.noData = false;
         this.channelDetail = null;
 
-        this.currentChannel = this.$route.params.channelType;
-        if(!this.currentChannel) this.currentChannel="电影";  //默认值
+        if(this.$route.params.channelType){
+          this.currentChannel = this.$route.params.channelType;
+        }else{
+            this.currentChannel="电影";  //默认值
+        }
 
-        this.isPurchase = this.$route.params.isPurchase;
-        if(!this.isPurchase) this.isPurchase=0;  //默认值
+        if(this.$route.params.isPurchase){
+          this.isPurchase = this.$route.params.isPurchase;
+        }else{
+            this.isPurchase=0;
+        }
 
-        this.mode = this.$route.params.mode;
-        if(!this.mode) this.mode=11;  //默认值
+        if(this.$route.params.mode) {
+            this.mode = this.$route.params.mode;
+        }else{
+            this.mode=11;
+        }
 
         let params = {
           type: "detail",
@@ -101,6 +110,6 @@
   @import "../style/common";
 
   #channelDetail{
-    margin: 10px;
+    margin: 10px 0;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <div id="computerMenu" >
       <Menu mode="horizontal" theme="dark">
         <Row type="flex" justify="center" align="middle" class="code-row-bg">
@@ -11,7 +11,7 @@
           <Col span="12"  >
           <Menu-item name="search">
             <Input v-model="keyword" style="width: 300px;" placeholder="奔跑吧">
-            <Button icon="ios-search" slot="append" @click="search">搜索</Button>
+            <Button icon="ios-search" slot="append" @click="search" type="success">搜索</Button>
             </Input>
           </Menu-item>
           </Col>
@@ -29,13 +29,13 @@
       <Row type="flex" justify="center" class="code-row-bg">
         <Col>
           <Input v-model="keyword" style="width: 300px;" placeholder="奔跑吧">
-          <Button icon="ios-search" slot="append" @click="search">搜索</Button>
+          <Button icon="ios-search" slot="append" @click="search" type="success">搜索</Button>
           </Input>
         </Col>
       </Row>
       </section>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

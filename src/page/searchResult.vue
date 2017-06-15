@@ -1,36 +1,35 @@
 <template>
   <section id="searchResult">
-    <div class="post">
-      <div class="loading" v-if="loading">
-        <Spin fix>
-          <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-          <div>Loading</div>
-        </Spin>
-      </div>
-
-      <div v-if="searchResult">
-        <Row type="flex" justify="start" align="top" class="code-row-bg">
-          <Col :xs="12" :md="4" v-for="item in searchResult" :key="item.id">
-          <section class="video">
-            <Card shadow>
-              <div class="videoImgOuter">
-                <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
-                  <img class="videoImg" :src="item.img">
-                </a>
-                <div>
-                  <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >{{ item.short_title}}</a>
-                  <div class="videoTitle">简介：{{ item.title}}</div>
-                  <div class="videoTitle">发布时间：{{ item.date_format }}</div>
-                </div>
-              </div>
-            </Card>
-          </section>
-          </Col>
-        </Row>
-      </div>
-
-      <div class="noData" v-if="noData"><Alert type="error" show-icon>还没有符合您要求的视频，换个词试试%~</Alert></div>
+    <div class="loading" v-if="loading">
+      <Spin>
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+      </Spin>
     </div>
+
+    <div v-if="searchResult">
+      <Card  shadow>
+      <Row type="flex" justify="start" align="top" class="code-row-bg">
+        <Col :xs="12" :md="4" v-for="item in searchResult" :key="item.id">
+        <section class="video">
+            <div class="videoImgOuter">
+              <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
+                <img class="videoImg" :src="item.img">
+              </a>
+            </div>
+              <div>
+                <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >{{ item.short_title}}</a>
+                <div class="videoTitle">简介：{{ item.title}}</div>
+                <div class="videoTitle">发布时间：{{ item.date_format }}</div>
+              </div>
+        </section>
+        </Col>
+      </Row>
+      </Card>
+    </div>
+
+    <div class="noData" v-if="noData"><Alert type="error" show-icon>还没有符合您要求的视频，换个词试试~</Alert></div>
+
   </section>
 </template>
 

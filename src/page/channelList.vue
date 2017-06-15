@@ -1,32 +1,29 @@
 <template>
   <section id="channelList">
-    <Row>
-      <Col span="24">
-        <div class="loading" v-if="loading">
-          <Spin fix>
-            <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-            <div>Loading</div>
-          </Spin>
-        </div>
-        <div v-if="channelLists">
-          <Card shadow>
-            <p slot="title">
-              <Icon type="ios-film-outline"></Icon>
-              频道列表
-            </p>
-            <ul >
-              <Row>
-                <Col :xs="4" :md="2" v-for="item in channelLists" :key="item.id">
-                  <li class="channel">
-                    <a @click="channelDetail(item.name)">{{ item.name }}</a>
-                  </li>
-                </Col>
-              </Row>
-            </ul>
-          </Card>
-        </div>
-      </Col>
-    </Row>
+    <div class="loading" v-if="loading">
+      <Spin>
+        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <div>Loading</div>
+      </Spin>
+    </div>
+
+    <div v-if="channelLists">
+      <Card shadow>
+        <p slot="title">
+          <Icon type="ios-film-outline"></Icon>
+          频道列表
+        </p>
+        <ul >
+          <Row>
+            <Col :xs="4" :md="2" v-for="item in channelLists" :key="item.id">
+              <li class="channel">
+                <a @click="channelDetail(item.name)">{{ item.name }}</a>
+              </li>
+            </Col>
+          </Row>
+        </ul>
+      </Card>
+    </div>
   </section>
 </template>
 
@@ -51,6 +48,8 @@
         this.$api.get('channel', params, r => {
           this.channelLists = r.data;
           this.loading = false;
+        },err=>{
+          window.console.log(err);
         })
       },
       channelDetail(channelType){
@@ -62,6 +61,7 @@
 
 <style lang="scss">
   @import "../style/color";
+
   a{
     color: $dark;
     &:hover{
