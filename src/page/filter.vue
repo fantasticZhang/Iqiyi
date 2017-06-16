@@ -118,6 +118,7 @@
         }else{
           this.showScore = false;
         }
+        window.console.log(this.currentChannel+ " "+ this.mode +" "+ this.isPurchase);
         let params = {
           type: 'list'
         };
@@ -126,6 +127,9 @@
         })
       },
       filter(channelType,mode,isPurchase){
+        if(channelType!=="电影"){
+            mode = 11;
+        }
         this.$router.push({name: 'detail',params:{channelType: channelType,isPurchase:isPurchase,mode:mode}});
       }
     }

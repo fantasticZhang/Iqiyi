@@ -8,7 +8,7 @@
     </div>
     <div v-if="channelDetail">
       <Card  shadow>
-        <Row>
+        <Row type="flex" justify="start" align="top" class="code-row-bg">
           <Col :xs="8" :md="4" v-for="item in channelDetail" :key="item.id">
           <section class="video">
             <div class="videoImgOuter">
@@ -25,6 +25,11 @@
           </section>
           </Col>
         </Row>
+
+        <div class="pager">
+          <Page :total="total" :page-size="pageSize" @on-change="changePage"></Page>
+        </div>
+
       </Card>
     </div>
     <div class="noData" v-if="noData"><Alert type="error" show-icon>该频道暂无内容，去其他频道看看吧~</Alert></div>
@@ -37,6 +42,10 @@
       data(){
         return {
           channelDetail: null,
+          total: 0,
+          pageSize: 30,
+          pageNum: 1,
+          maxPage:50,
           loading: true,
           noData:false,
           currentChannel:null,
@@ -55,7 +64,7 @@
         this.loading = true;
         this.noData = false;
         this.channelDetail = null;
-
+        this.total = 0;
         if(this.$route.params.channelType){
           this.currentChannel = this.$route.params.channelType;
         }else{
@@ -78,10 +87,39 @@
           type: "detail",
           channel_name: this.currentChannel,
           mode: this.mode,
-          is_purchase: this.isPurchase
+          is_purchase: this.isPurchase,
+          page_size: this.pageSize,
+          page_num: 1
         };
         this.$api.get('channel',params,r => {
           this.channelDetail = this.formatImgUrl(r.data.video_list);
+          this.total = r.data.total || this.total;
+          this.total = this.total <= (this.pageSize * this.maxPage)? this.total:(this.pageSize * this.maxPage);
+          this.loading = false;
+          this.noData = false;
+        },err=>{
+          this.channelDetail = null;
+          this.loading = false;
+          this.noData = true;
+        })
+      },
+
+      changePage(current){
+        this.pageNum = current;
+        let params = {
+          type: "detail",
+          channel_name: this.currentChannel,
+          mode: this.mode,
+          is_purchase: this.isPurchase,
+          page_size: this.pageSize,
+          page_num: current
+        };
+        this.$api.get('channel',params,r => {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+          this.channelDetail = this.formatImgUrl(r.data.video_list);
+          this.total = r.data.total || this.total;
+          this.total = this.total <= (this.pageSize * this.maxPage)? this.total:(this.pageSize * this.maxPage);
           this.loading = false;
           this.noData = false;
         },err=>{
@@ -111,5 +149,10 @@
 
   #channelDetail{
     margin: 10px 0;
+  }
+
+  .pager{
+    width: 400px;
+    margin: 20px auto;
   }
 </style>

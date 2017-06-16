@@ -1,5 +1,5 @@
 <template>
-  <section id="channelList">
+  <section id="channelList" >
     <div class="loading" v-if="loading">
       <Spin>
         <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>

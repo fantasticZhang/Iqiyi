@@ -20,11 +20,15 @@
               <div>
                 <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >{{ item.short_title}}</a>
                 <div class="videoTitle">简介：{{ item.title}}</div>
-                <div class="videoTitle">发布时间：{{ item.date_format }}</div>
               </div>
         </section>
         </Col>
       </Row>
+
+      <div class="pager">
+        <Page :total="total" :page-size="pageSize" @on-change="changePage"></Page>
+      </div>
+
       </Card>
     </div>
 
@@ -39,7 +43,10 @@
       return {
         loading: false,
         searchResult: null,
-        noData:false
+        noData:false,
+        total: 300,
+        pageSize: 30,
+        pageNum: 1
       }
     },
     created () {
@@ -58,7 +65,9 @@
         this.noData = false;
         let params = {
           key: this.$route.params.keyword,
-          from: 'mobile_list'
+          from: 'mobile_list',
+          page_size: this.pageSize,
+          pg_num: 1
         };
         this.$api.get('search', params, r => {
           this.loading = false;
@@ -69,6 +78,27 @@
           this.loading = false;
           this.noData = true;
         })
+      },
+      changePage(current){
+        this.pageNum = current;
+        let params = {
+          key: this.$route.params.keyword,
+          from: 'mobile_list',
+          page_size: this.pageSize,
+          pg_num: current
+        };
+        this.$api.get('search', params, r => {
+          this.loading = false;
+          this.noData = false;
+          this.searchResult = this.formatImgUrl(r.data)
+        },err=>{
+          this.searchResult = null;
+          this.loading = false;
+          this.noData = true;
+        });
+
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       },
       launch: event => {
         let aid = event.target.getAttribute('a_id');
@@ -91,6 +121,11 @@
 
   @import "../style/common";
   #searchResult{
-    margin: 10px;
+    margin: 10px 0;
+  }
+
+  .pager{
+    width: 400px;
+    margin: 20px auto;
   }
 </style>
