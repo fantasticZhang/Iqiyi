@@ -9,9 +9,6 @@
   height: auto;
   max-width: 100%;
 }
-div.videoTitle{
-  padding-top:3px;
-}
 a.videoTitle{
   color: $dark;
   &:hover{
@@ -19,6 +16,7 @@ a.videoTitle{
   }
 }
 div.videoTitle{
+  padding-top:3px;
   font-size: 12px;
   color: $gray;
 }

@@ -2,7 +2,7 @@
   <section id="channelDetail">
     <div class="loading" v-if="loading">
       <Spin>
-        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <Icon type="load-c" size=18 ></Icon>
         <div>Loading</div>
       </Spin>
     </div>
@@ -93,8 +93,9 @@
         };
         this.$api.get('channel',params,r => {
           this.channelDetail = this.formatImgUrl(r.data.video_list);
-          this.total = r.data.total || this.total;
+          this.total = r.data.total || 0;
           this.total = this.total <= (this.pageSize * this.maxPage)? this.total:(this.pageSize * this.maxPage);
+          this.total = parseInt(this.total);
           this.loading = false;
           this.noData = false;
         },err=>{
@@ -120,6 +121,7 @@
           this.channelDetail = this.formatImgUrl(r.data.video_list);
           this.total = r.data.total || this.total;
           this.total = this.total <= (this.pageSize * this.maxPage)? this.total:(this.pageSize * this.maxPage);
+          this.total = parseInt(this.total);
           this.loading = false;
           this.noData = false;
         },err=>{
@@ -139,7 +141,7 @@
         let aid = event.target.getAttribute('a_id');
         let tvid = event.target.getAttribute('tv_id');
         location.href = 'iqiyi://mobile/player?aid=' + aid + '&tvid=' + tvid + '&ftype=27&to=3&url=' + encodeURIComponent(location.href);
-      },
+      }
     }
   }
 </script>
@@ -150,7 +152,6 @@
   #channelDetail{
     margin: 10px 0;
   }
-
   .pager{
     width: 400px;
     margin: 20px auto;

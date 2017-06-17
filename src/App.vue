@@ -4,7 +4,6 @@
     <router-view class="view one" name="first"></router-view>
     <router-view class="view two" name="second"></router-view>
     <router-view class="view three" name="third"></router-view>
-    <Back-top></Back-top>
   </div>
 </template>
 

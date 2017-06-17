@@ -27,7 +27,7 @@
           </Col>
           <Col :xs="24"  :md="23">
           <ul >
-            <Row type="flex" justify="start" align="top" class="code-row-bg">
+            <Row >
               <Col :xs="4" :md="2" >
               <li :class="{filterCondition: true , selected: isPurchase === 0}">
                 <a @click="filter(currentChannel,mode,0)">免费</a>
@@ -51,7 +51,7 @@
           </Col>
           <Col :xs="24"  :md="23">
           <ul >
-            <Row type="flex" justify="start" align="top" class="code-row-bg">
+            <Row >
               <Col :xs="4" :md="2" >
               <li :class="{filterCondition: true , selected: mode === 11}">
                 <a @click="filter(currentChannel,11,isPurchase)">热门</a>
@@ -118,19 +118,28 @@
         }else{
           this.showScore = false;
         }
-        window.console.log(this.currentChannel+ " "+ this.mode +" "+ this.isPurchase);
         let params = {
           type: 'list'
         };
         this.$api.get('channel', params, r => {
           this.channelLists = r.data;
+        },err=>{
+          window.console.log(err);
+          this.err();
         })
       },
       filter(channelType,mode,isPurchase){
-        if(channelType!=="电影"){
+        if(channelType!=="电影" && mode === 8){
             mode = 11;
         }
         this.$router.push({name: 'detail',params:{channelType: channelType,isPurchase:isPurchase,mode:mode}});
+      },
+      err () {
+        this.$Message.error({
+          content: '频道列表加载出错了，稍后再刷新试试看~',
+          duration: 10,
+          closable: true
+        });
       }
     }
   }
@@ -138,8 +147,16 @@
 
 <style lang="scss" scoped>
   @import "../style/color";
-  #filter{
-    margin: 10px 0;
+
+  @media(min-width:769px) {
+    #filter{
+      margin: 20px 0 20px 0;
+    }
+  }
+  @media(max-width: 768px){
+    #filter{
+      margin: 0 0 20px 0;
+    }
   }
   .filter{
     border-bottom: 1px dotted $gray;

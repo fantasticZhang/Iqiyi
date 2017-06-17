@@ -2,7 +2,7 @@
   <section id="channelList" >
     <div class="loading" v-if="loading">
       <Spin>
-        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <Icon type="load-c" size=18 ></Icon>
         <div>Loading</div>
       </Spin>
     </div>
@@ -48,12 +48,21 @@
         this.$api.get('channel', params, r => {
           this.channelLists = r.data;
           this.loading = false;
+
         },err=>{
           window.console.log(err);
+          this.err();
         })
       },
       channelDetail(channelType){
           this.$router.push({name: 'detail',params:{channelType: channelType,isPurchase:0,mode:11}});
+      },
+      err () {
+        this.$Message.error({
+          content: '频道列表加载出错了，稍后再刷新试试看~',
+          duration: 10,
+          closable: true
+        });
       }
     }
   }
@@ -69,7 +78,7 @@
     }
   }
   #channelList{
-    margin: 10px 0;
+    margin: 20px 0 0 0;
   }
   .channel{
     display: inline-block;

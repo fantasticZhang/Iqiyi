@@ -55,7 +55,6 @@ function apiAxios (method, url, params, success, failure) {
   if (params) {
     params = filterNull(params)
   }
-  console.log(Object.assign(params, defaultParam));
   axios({
     method: method,
     url: url,
@@ -64,7 +63,6 @@ function apiAxios (method, url, params, success, failure) {
     withCredentials: false
   })
     .then(function (res) {
-      console.log(res);
       if (res.data.code === 100000 || res.data.code === 0) {
         if (success) {
           success(res.data);
@@ -80,7 +78,8 @@ function apiAxios (method, url, params, success, failure) {
     .catch(function (err) {
       let res = err.response;
       if (err) {
-        window.alert('api error, HTTP CODE: ' + res);
+        console.log('api error, HTTP CODE: ' + res);
+        window.alert("后台接口出错了，稍后再刷新试试~")
       }
     })
 }

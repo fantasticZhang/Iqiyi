@@ -19,9 +19,11 @@
           <Row type="flex" justify="start" align="top" class="code-row-bg" >
             <Col :xs="12" :md="4" v-for="item in channel.video_list" :key="item.id">
             <section class="video">
+              <div>
                 <a href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >
                   <img class="videoImg" :src="item.img">
                 </a>
+              </div>
                 <div>
                   <a class="videoTitle" href="#" :a_id="item.a_id" :tv_id="item.tv_id" @click.prevent="launch" >{{ item.short_title}}</a>
                   <div class="videoTitle">{{ item.title}}</div>
@@ -85,10 +87,10 @@
   @import "../style/common";
 
   #billboard{
-    margin: 10px 0;
+    margin: 0;
   }
   .channel{
-    padding-top: 5px;
+   margin-top: 20px;
   }
   @mixin link-colors{
       color: $green;

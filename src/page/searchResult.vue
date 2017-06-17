@@ -2,7 +2,7 @@
   <section id="searchResult">
     <div class="loading" v-if="loading">
       <Spin>
-        <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+        <Icon type="load-c" size=18 ></Icon>
         <div>Loading</div>
       </Spin>
     </div>
@@ -120,12 +120,19 @@
 <style lang="scss" scoped>
 
   @import "../style/common";
-  #searchResult{
-    margin: 10px 0;
-  }
-
   .pager{
     width: 400px;
     margin: 20px auto;
+  }
+
+  @media(min-width:769px) {
+    #searchResult{
+      margin: 20px 0;
+    }
+  }
+  @media(max-width: 768px){
+    #searchResult{
+      margin: 0 0 20px 0;
+    }
   }
 </style>
