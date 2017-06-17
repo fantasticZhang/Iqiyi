@@ -1,8 +1,8 @@
 # Iqiyi
 
-> Iqiyi - the strongest developer rematch - h5
+> Iqiyi - 爱奇艺技术大赛最强开发者复赛作品 - H5方向
 
-## Build Setup
+## 安装与运行
 
 ``` bash
 # install dependencies
@@ -10,6 +10,8 @@ npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
+
+执行以上两步，并在浏览器输入`localhost:8080`,即可查看我们的作品。
 
 # build for production with minification
 npm run build
